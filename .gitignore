@@ -2,6 +2,10 @@
 node_modules/
 */node_modules/
 
+# Next.js Legacy Artifacts
+.next/
+*/.next/
+
 # Environment Variables & Secrets (Keep your DB & API keys private)
 .env
 .env.local
