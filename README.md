@@ -3,6 +3,8 @@
 <div align="center">
 
 [![CI/CD Pipeline](https://github.com/manikanta-2310/Agentic-AI-Automation-Platform-Agentflow_AI-/actions/workflows/ci.yml/badge.svg)](https://github.com/manikanta-2310/Agentic-AI-Automation-Platform-Agentflow_AI-/actions)
+[![Live Frontend Demo](https://img.shields.io/badge/Live_App-Vercel-000000?logo=vercel&logoColor=white)](https://agentic-ai-automation-platform-agen.vercel.app)
+[![Live Backend API](https://img.shields.io/badge/Backend_API-Render-46E3B7?logo=render&logoColor=black)](https://agentflow-backend-p03g.onrender.com)
 [![React 19](https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react&logoColor=black)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-6.1.0-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
 [![Vanilla CSS](https://img.shields.io/badge/Styling-Pure_Vanilla_CSS-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -19,6 +21,17 @@
 </p>
 
 </div>
+
+---
+
+## 🌐 Live Production Deployment
+
+| Service | Cloud Platform | Live Link |
+| :--- | :---: | :--- |
+| **Frontend Web Application** | **Vercel** | 🔗 **[https://agentic-ai-automation-platform-agen.vercel.app](https://agentic-ai-automation-platform-agen.vercel.app)** |
+| **Backend API Engine** | **Render** | 🔗 **[https://agentflow-backend-p03g.onrender.com](https://agentflow-backend-p03g.onrender.com)** |
+| **Realtime WebSockets** | **Render / Socket.IO** | 📡 `wss://agentflow-backend-p03g.onrender.com` |
+| **Cloud Database** | **MongoDB Atlas** | 🍃 Managed Cluster (`cluster0.0lkmd0a.mongodb.net`) |
 
 ---
 
@@ -191,6 +204,7 @@ Agentflow_AI/
 │   │   └── main.jsx                    # React 19 bootstrap entry
 │   ├── index.html                      # Root SPA template
 │   ├── package.json                    # Vite + React 19 dependencies
+│   ├── vercel.json                     # Vercel SPA client-side routing
 │   └── vite.config.js                  # Vite configuration
 ├── package.json                        # Monorepo root scripts
 ├── spec.md                             # Specification sheet
@@ -203,11 +217,11 @@ Agentflow_AI/
 - **Password Hashing**: Bcrypt cost 12
 - **JWT Authentication**: Signed with `JWT_SECRET`, 7-day expiration
 - **Credential Storage**: AES-256-GCM encryption at rest with application-level key (`CREDENTIAL_ENCRYPTION_KEY`)
-- **HTTP Hardening**: Helmet security headers & CORS restricted to `CLIENT_URL`
+- **HTTP Hardening**: Custom CORS reflection + Compression
 - **Rate Limiting**: `express-rate-limit` active on auth routes
 - **Request Validation**: `express-validator` schema enforcement on all mutation endpoints
 
 ---
 
 ## 🤝 License
-MIT License. Built for enterprise AI workflow automation.
+MIT License. Copyright (c) 2026 Manikanta Banoth.
