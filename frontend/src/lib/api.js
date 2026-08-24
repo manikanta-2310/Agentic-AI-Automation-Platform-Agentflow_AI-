@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || 'http://localhost:5000/api';
+// Default to live Render backend URL in production, or localhost in dev if explicit
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://agentflow-backend-p03g.onrender.com/api';
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
