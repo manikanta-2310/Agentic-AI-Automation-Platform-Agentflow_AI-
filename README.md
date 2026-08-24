@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![CI/CD Pipeline](https://github.com/manikanta-2310/Agentflow_AI/actions/workflows/ci.yml/badge.svg)](https://github.com/manikanta-2310/Agentflow_AI/actions)
+[![CI/CD Pipeline](https://github.com/manikanta-2310/Agentic-AI-Automation-Platform-Agentflow_AI-/actions/workflows/ci.yml/badge.svg)](https://github.com/manikanta-2310/Agentic-AI-Automation-Platform-Agentflow_AI-/actions)
 [![React 19](https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react&logoColor=black)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-6.1.0-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
 [![Vanilla CSS](https://img.shields.io/badge/Styling-Pure_Vanilla_CSS-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
