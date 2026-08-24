@@ -16,33 +16,38 @@ const { errorHandler, notFoundHandler } = require('./middlewares/errorHandler');
 const app = express();
 const server = http.createServer(app);
 
-// 1. Security & Core Middlewares
+// 1. Fail-proof Custom CORS & Preflight Middleware
+app.use((req, res, next) => {
+  const origin = req.headers.origin || '*';
+  res.header('Access-Control-Allow-Origin', origin);
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
+});
+
+// 2. Security & Core Middlewares
 app.use(
   helmet({
     contentSecurityPolicy: false,
-    crossOriginEmbedderPolicy: false
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: false
   })
 );
-
-const corsOptions = {
-  origin: true,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'Accept', 'X-Requested-With']
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
 
 app.use(compression());
 app.use(morgan(config.NODE_ENV === 'development' ? 'dev' : 'combined'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// 2. Auth Rate Limiting
+// 3. Auth Rate Limiting
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 200,
+  max: 300,
   message: {
     success: false,
     error: {
@@ -57,7 +62,7 @@ const authLimiter = rateLimit({
 app.use('/api/auth/login', authLimiter);
 app.use('/api/auth/register', authLimiter);
 
-// 3. API Routes
+// 4. API Routes
 app.use('/api', apiRoutes);
 
 // Root Welcome Route
@@ -70,11 +75,11 @@ app.get('/', (req, res) => {
   });
 });
 
-// 4. Fallback & Error Handlers
+// 5. Fallback & Error Handlers
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-// 5. Bootstrap Server
+// 6. Bootstrap Server
 async function startServer() {
   try {
     console.log('[System] Initializing Agentflow_AI backend...');
