@@ -16,26 +16,25 @@ const { errorHandler, notFoundHandler } = require('./middlewares/errorHandler');
 const app = express();
 const server = http.createServer(app);
 
-// 1. Fail-proof Custom CORS & Preflight Middleware
-app.use((req, res, next) => {
-  const origin = req.headers.origin || '*';
-  res.header('Access-Control-Allow-Origin', origin);
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-  next();
-});
+// 1. CORS MUST BE FIRST BEFORE HELMET
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'Accept', 'X-Requested-With']
+  })
+);
 
-// 2. Security & Core Middlewares
+app.options('*', cors({ origin: true, credentials: true }));
+
+// 2. Helmet with cross-origin resource policy enabled
 app.use(
   helmet({
-    contentSecurityPolicy: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
     crossOriginEmbedderPolicy: false,
-    crossOriginResourcePolicy: false
+    crossOriginOpenerPolicy: false,
+    contentSecurityPolicy: false
   })
 );
 
