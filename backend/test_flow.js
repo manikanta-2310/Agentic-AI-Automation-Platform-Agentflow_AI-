@@ -18,7 +18,7 @@ async function runVerification() {
   // 1. Health Check
   console.log('\n[1/7] Testing GET /api/health ...');
   const healthRes = await axios.get(`${BASE_URL}/health`);
-  console.log('✓ Health status:', healthRes.data.status, '| Database:', healthRes.data.system.database, '| LangGraph:', healthRes.data.system.langGraph);
+  console.log('✓ Health status:', healthRes.data.status, '| Database:', healthRes.data.system.database, '| Agent Engine:', healthRes.data.system.agentEngine);
 
   // 2. User Registration
   const testEmail = `operator_${Date.now()}@agentflow.io`;

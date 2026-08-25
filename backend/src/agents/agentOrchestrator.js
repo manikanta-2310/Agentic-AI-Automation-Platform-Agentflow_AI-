@@ -8,25 +8,16 @@ const Workflow = require('../models/Workflow');
 const notificationService = require('../services/notificationService');
 const { emitExecutionEvent } = require('../config/socket');
 
-// Detect LangGraph availability
-let langGraphStatus = 'not-installed';
-try {
-  require('@langchain/langgraph');
-  langGraphStatus = 'available';
-} catch (e) {
-  langGraphStatus = 'not-installed';
-}
-
 // In-memory registry of active execution cancellation tokens
 const activeExecutions = new Map();
 
 class AgentOrchestrator {
   constructor() {
-    this.langGraphStatus = langGraphStatus;
+    this.engineStatus = 'active';
   }
 
-  getLangGraphStatus() {
-    return this.langGraphStatus;
+  getEngineStatus() {
+    return this.engineStatus;
   }
 
   async runWorkflow(executionId) {
@@ -46,13 +37,11 @@ class AgentOrchestrator {
 
     execution.status = 'RUNNING';
     execution.startedAt = new Date();
-    execution.langGraphStatus = this.langGraphStatus;
     await execution.save();
 
     emitExecutionEvent(executionIdStr, 'execution:start', {
       executionId: executionIdStr,
       status: 'RUNNING',
-      langGraph: this.langGraphStatus,
       startedAt: execution.startedAt
     });
 
@@ -63,7 +52,7 @@ class AgentOrchestrator {
       agent: 'orchestrator',
       level: 'info',
       eventType: 'ORCHESTRATOR_START',
-      message: `Multi-agent orchestration pipeline started (LangGraph: ${this.langGraphStatus})`,
+      message: 'Multi-agent orchestration pipeline started (Native Engine)',
       metadata: { workflowName: workflow.name, nodesCount: workflow.nodes.length }
     });
 

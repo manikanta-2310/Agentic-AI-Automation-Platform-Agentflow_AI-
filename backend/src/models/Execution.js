@@ -61,11 +61,6 @@ const executionSchema = new mongoose.Schema(
     maxRetries: {
       type: Number,
       default: 3
-    },
-    langGraphStatus: {
-      type: String,
-      enum: ['available', 'not-installed'],
-      default: 'available'
     }
   },
   {

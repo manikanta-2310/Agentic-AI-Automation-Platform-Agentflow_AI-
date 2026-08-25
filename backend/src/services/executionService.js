@@ -69,7 +69,6 @@ async function getExecutionTimeline(executionId, ownerId) {
     completedAt: execution.completedAt,
     durationMs: execution.durationMs,
     currentNodeId: execution.currentNodeId,
-    langGraphStatus: execution.langGraphStatus,
     timeline: logs
   };
 }
@@ -105,8 +104,7 @@ async function triggerExecution(workflowId, ownerId, inputPayload = {}) {
     workflowSnapshot: snapshot,
     status: 'PENDING',
     inputPayload,
-    maxRetries: 3,
-    langGraphStatus: agentOrchestrator.getLangGraphStatus()
+    maxRetries: 3
   });
 
   // Enqueue execution job

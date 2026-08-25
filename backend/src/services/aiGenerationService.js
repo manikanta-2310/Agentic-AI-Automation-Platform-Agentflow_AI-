@@ -327,12 +327,11 @@ Return ONLY valid JSON matching this schema:
 async function generateWithGemini(prompt) {
   if (!config.GEMINI_API_KEY) return null;
 
-  try {
-    const { GoogleGenerativeAI } = require('@google/generative-ai');
-    const genAI = new GoogleGenerativeAI(config.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const candidateModels = ['gemini-2.0-flash', 'gemini-1.5-flash-8b', 'gemini-1.5-pro', 'gemini-1.5-flash'];
+  const { GoogleGenerativeAI } = require('@google/generative-ai');
+  const genAI = new GoogleGenerativeAI(config.GEMINI_API_KEY);
 
-    const systemPrompt = `You are an expert AI Operations Workflow Architect. Generate a JSON object containing { name, description, tags, nodes, edges } for React Flow based on this automation requirement: "${prompt}".
+  const systemPrompt = `You are an expert AI Operations Workflow Architect. Generate a JSON object containing { name, description, tags, nodes, edges } for React Flow based on this automation requirement: "${prompt}".
 Output valid raw JSON only without markdown formatting.
 Available node categories:
 - triggerNode (webhook, email_trigger, schedule_trigger)
@@ -341,17 +340,23 @@ Available node categories:
 - actionNode (gmail_send_email, slack_send_message, discord_send_message, sheets_append_row, http_request)
 Ensure nodes are laid out left to right (x starts at 100, increases by 320 for each step).`;
 
-    const result = await model.generateContent(systemPrompt);
-    const text = result.response.text().trim();
-    const cleanJson = text.replace(/```json\s*|\s*```/g, '');
-    const parsed = JSON.parse(cleanJson);
-    if (parsed.nodes && parsed.edges) {
-      parsed.generatorSource = 'gemini';
-      return parsed;
+  for (const modelName of candidateModels) {
+    try {
+      const model = genAI.getGenerativeModel({ model: modelName });
+      const result = await model.generateContent(systemPrompt);
+      const text = result.response.text().trim();
+      const cleanJson = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '').trim();
+      const parsed = JSON.parse(cleanJson);
+      if (parsed.nodes && parsed.edges) {
+        parsed.generatorSource = `gemini (${modelName})`;
+        return parsed;
+      }
+    } catch (err) {
+      // Continue to next candidate model
+      console.warn(`[AIGenerationService] Gemini model ${modelName} attempt failed (${err.message}). Trying next...`);
     }
-  } catch (err) {
-    console.warn('[AIGenerationService] Gemini generation failed:', err.message);
   }
+
   return null;
 }
 

@@ -81,10 +81,10 @@ export default function SettingsPage() {
               <div className="glass-card" style={{ padding: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
                   <Cpu style={{ width: '16px', height: '16px', color: '#818cf8' }} />
-                  <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#ffffff' }}>LangGraph Substrate</span>
+                  <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#ffffff' }}>Multi-Agent Orchestrator</span>
                 </div>
                 <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#a5b4fc' }}>
-                  ● {healthData?.system?.langGraph || 'available'}
+                  ● {healthData?.system?.agentEngine || 'active'}
                 </div>
               </div>
 

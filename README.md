@@ -12,7 +12,7 @@
 [![Express](https://img.shields.io/badge/Express-4.21-000000?logo=express&logoColor=white)](https://expressjs.com)
 [![MongoDB Atlas](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/atlas)
 [![Socket.IO](https://img.shields.io/badge/Socket.IO-4.8-010101?logo=socket.io&logoColor=white)](https://socket.io)
-[![LangGraph](https://img.shields.io/badge/LangGraph-Substrate_Supported-purple.svg)](https://langchain.com)
+[![Multi-Agent Engine](https://img.shields.io/badge/Multi--Agent_Engine-Native_5--Agent_Pipeline-purple.svg)](#-five-agent-autonomous-orchestration)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 <p align="center">
@@ -169,7 +169,7 @@ Agentflow_AI/
 ├── backend/
 │   ├── src/
 │   │   ├── agents/                     # 5-Agent Multi-Agent Subsystem
-│   │   │   ├── agentOrchestrator.js    # Master agent coordinator & LangGraph bridge
+│   │   │   ├── agentOrchestrator.js    # Master multi-agent coordinator & event pipeline
 │   │   │   ├── plannerAgent.js         # Graph topology & confidence scoring
 │   │   │   ├── executionAgent.js       # Node execution & template resolution
 │   │   │   ├── validationAgent.js      # Schema verification & contract checks

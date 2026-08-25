@@ -41,7 +41,7 @@ export default function Navbar() {
           <span>Engine Active</span>
           <span style={{ color: 'var(--text-muted)' }}>|</span>
           <span style={{ color: '#a5b4fc', fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-            <Cpu style={{ width: '12px', height: '12px' }} /> LangGraph: {healthStatus?.langGraph || 'available'}
+            <Cpu style={{ width: '12px', height: '12px' }} /> Multi-Agent: {healthStatus?.agentEngine || 'active'}
           </span>
         </div>
       </div>

@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     system: {
       database: dbState,
       redisQueue: isRedisAvailable() ? 'connected' : 'in-memory-fallback',
-      langGraph: agentOrchestrator.getLangGraphStatus(),
+      agentEngine: agentOrchestrator.getEngineStatus(),
       memoryUsageMb: Math.round(process.memoryUsage().heapUsed / 1024 / 1024)
     }
   });

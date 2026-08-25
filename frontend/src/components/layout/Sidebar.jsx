@@ -77,7 +77,7 @@ export default function Sidebar() {
           Planner, Execution, Validation, Recovery & Monitoring agents active.
         </p>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.65rem', fontFamily: 'var(--font-mono)', borderTop: '1px solid var(--border-color)', paddingTop: '0.5rem' }}>
-          <span style={{ color: 'var(--text-muted)' }}>LangGraph Substrate</span>
+          <span style={{ color: 'var(--text-muted)' }}>Native Agent Pipeline</span>
           <span style={{ color: '#10b981', fontWeight: '700' }}>● Live</span>
         </div>
       </div>
